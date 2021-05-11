@@ -14,4 +14,5 @@ FROM prereqs as development
 COPY . /srv/app
 WORKDIR /srv/app
 
+HEALTHCHECK CMD python check.py
 CMD flask run

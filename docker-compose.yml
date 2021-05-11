@@ -1,10 +1,10 @@
 version: '3.9'
 services:
     webapp:
+        container_name: wm_webapp
         build:
             context: .
             target: development
-        command: 'ping 127.0.0.1'
         volumes:
             - .:/srv/app
         ports:
@@ -17,5 +17,12 @@ services:
             - HEALTHCHECK_ALERT_SMTP_PASSWORD=${HEALTHCHECK_ALERT_SMTP_PASSWORD:-admin}
             - HEALTHCHECK_ALERT_SENDER=${HEALTHCHECK_ALERT_SENDER:-admin@thisfish.co}
             - HEALTHCHECK_ALERT_RECEPIENTS=${HEALTHCHECK_ALERT_RECEPIENTS:-app_support@thisfish.co}
+        healthcheck:
+            interval: 1m
+            timeout: 15s
+            retries: 3
+            start_period: 30s
+        depends_on:
+            - redis
     redis:
         image: 'redis:6.2.3-alpine'
