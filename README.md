@@ -46,8 +46,10 @@ docker-compose up
 # Limitations
 
 If the parent process is killed by virtue of:
+
 * docker stop on a compose deployment, or manual docker run deployment
 * host OS is down
 * docker daemon is down
 * similar scenarios
+
 Healthcheck will not be able to run, and there will be no email alerts. In this scenario a centralized logging facility can monitor transactions, and give an idea about service availability. A simpler solution is to implement a third-party service that does the healthcheck (e.g [[cachetHQ](https://github.com/cachethq/Cachet)]); but that would also be subject to its internal availability, and connectivity.
