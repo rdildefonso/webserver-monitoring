@@ -4,5 +4,10 @@ services:
         build:
             context: .
             target: development
+        command: 'ping 127.0.0.1'
+        volumes:
+            - .:/srv/app
+        ports:
+            - '5000:5000'
     redis:
-        image: 'redis:alpine'
+        image: 'redis:6.2.3-alpine'
