@@ -9,5 +9,13 @@ services:
             - .:/srv/app
         ports:
             - '5000:5000'
+        environment:
+            - HEALTHCHECK_URL=${HEALTHCHECK_URL:-http://127.0.0.1:5000/healthcheck}
+            - HEALTHCHECK_ALERT_SMTP_SERVER=${HEALTHCHECK_ALERT_SMTP_SERVER:-localhost}
+            - HEALTHCHECK_ALERT_SMTP_PORT=${HEALTHCHECK_ALERT_SMTP_PORT:-587}
+            - HEALTHCHECK_ALERT_SMTP_USERNAME=${HEALTHCHECK_ALERT_SMTP_USERNAME:-admin}
+            - HEALTHCHECK_ALERT_SMTP_PASSWORD=${HEALTHCHECK_ALERT_SMTP_PASSWORD:-admin}
+            - HEALTHCHECK_ALERT_SENDER=${HEALTHCHECK_ALERT_SENDER:-admin@thisfish.co}
+            - HEALTHCHECK_ALERT_RECEPIENTS=${HEALTHCHECK_ALERT_RECEPIENTS:-app_support@thisfish.co}
     redis:
         image: 'redis:6.2.3-alpine'

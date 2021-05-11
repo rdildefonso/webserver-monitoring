@@ -18,11 +18,19 @@ def get_hit_count():
             retries -= 1
             time.sleep(0.5)
 
+
 @app.route('/')
 def index():
     count = get_hit_count()
     return 'Hello World! I have been seen {} times.\n'.format(count)
 
+
 @app.route('/error')
 def error():
     abort(504)
+
+
+@app.route('/healthcheck')
+def healthcheck():
+    count = get_hit_count()
+    return 'ok'
