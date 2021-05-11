@@ -27,7 +27,7 @@ The application itself would run with no extra configurations, however there are
 * HEALTHCHECK_ALERT_SENDER - email address to show as sender
 * HEALTHCHECK_ALERT_RECEPIENTS - email address of alert recepients
 
-Define these variables in the .env file as <variable>=<value>
+Define these variables in the .env file as \<variable\>=\<value\>
 
 ## Running
 ```
