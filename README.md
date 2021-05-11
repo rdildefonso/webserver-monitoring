@@ -35,10 +35,19 @@ docker-compose up
 ```
 
 ## Defaults
-HEALTHCHECK_URL=http://127.0.0.1:5000/healthcheck - a different route is defined to monitor the service availability of the application. Different route as healthcheck is preferred over running healthchecks against a real application route so that it will be easier to filter-out healthchecks on the application logs. This can be set to http://127.0.0.1:5000/error to force a 504 status code, and thus an email sending trigger.
-HEALTHCHECK_ALERT_SMTP_SERVER=localhost
-HEALTHCHECK_ALERT_SMTP_SERVER=587
-HEALTHCHECK_ALERT_SMTP_USERNAME=admin
-HEALTHCHECK_ALERT_SMTP_PASSWORD=admin
-HEALTHCHECK_ALERT_SENDER=admin@thisfish.co - a theoretical admin email for domain thisfish.co, as best practice only use organizational domains against domains that you have SMTP credentials for
-HEALTHCHECK_ALERT_RECEPIENTS=app_support@thisfish.co - a theoretical group email for domain thisfish.co. This can also be set to comma-separated recipients.
+* HEALTHCHECK_URL=http://127.0.0.1:5000/healthcheck - a different route is defined to monitor the service availability of the application. Different route as healthcheck is preferred over running healthchecks against a real application route so that it will be easier to filter-out healthchecks vs actual transactions on the application logs. This can be set to http://127.0.0.1:5000/error to force a 504 status code, and thus an email sending trigger.
+* HEALTHCHECK_ALERT_SMTP_SERVER=localhost - placeholder SMTP server
+* HEALTHCHECK_ALERT_SMTP_SERVER=587 - default port for SMTP service
+* HEALTHCHECK_ALERT_SMTP_USERNAME=admin - placeholder username
+* HEALTHCHECK_ALERT_SMTP_PASSWORD=admin - placeholder password
+* HEALTHCHECK_ALERT_SENDER=admin@thisfish.co - a theoretical admin email for domain thisfish.co, as best practice only use organizational domains against domains that you have SMTP credentials for
+* HEALTHCHECK_ALERT_RECEPIENTS=app_support@thisfish.co - a theoretical group email for domain thisfish.co, should point to application SMEs. This can also be set to comma-separated recipients.
+
+# Limitations
+
+If the parent process is killed by virtue of:
+* docker stop on a compose deployment, or manual docker run deployment
+* host OS is down
+* docker daemon is down
+* similar scenarios
+Healthcheck will not be able to run, and there will be no email alerts. In this scenario a centralized logging facility can monitor transactions, and give an idea about service availability. A simpler solution is to implement a third-party service that does the healthcheck (e.g [[cachetHQ](https://github.com/cachethq/Cachet)]); but that would also be subject to its internal availability, and connectivity.
