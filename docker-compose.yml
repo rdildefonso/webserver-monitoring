@@ -1,0 +1,8 @@
+version: '3.9'
+services:
+    webapp:
+        build:
+            context: .
+            target: development
+    redis:
+        image: 'redis:alpine'
